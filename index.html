@@ -19,15 +19,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
+    html.dark {
+      --bg-gradient: linear-gradient(-45deg, #0a1931, #800000, #1b2845, #a4161a);
+      --text-color: #e5e7eb;
+    }
+    html.light {
+      --bg-gradient: linear-gradient(-45deg, #f9fafb, #e5e7eb, #f0f0f0, #ffffff);
+      --text-color: #1f2937;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
-      color: #e5e7eb;
-      background: linear-gradient(-45deg, #0a1931, #800000, #1b2845, #a4161a);
+      color: var(--text-color);
+      background: var(--bg-gradient);
       background-size: 400% 400%;
       animation: gradientMove 25s ease infinite;
       overflow-x: hidden;
       scroll-behavior: smooth;
-      transition: background 0.5s ease, color 0.5s ease;
+      transition: background 0.6s ease, color 0.6s ease;
     }
 
     @keyframes gradientMove {
@@ -36,17 +45,14 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* Abstract mesh overlay */
     .mesh {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       pointer-events: none;
       background:
-        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.15), transparent 60%),
-        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.15), transparent 60%);
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1), transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1), transparent 60%);
       background-size: 200% 200%;
       animation: moveMesh 15s ease-in-out infinite alternate;
       z-index: -2;
@@ -57,20 +63,11 @@
       to { background-position: 100% 100%; }
     }
 
-    /* Particles layer */
     #particles-js {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       z-index: -1;
-    }
-
-    /* Light Mode */
-    .light body {
-      color: #1f2937;
-      background: linear-gradient(-45deg, #f9fafb, #e5e7eb, #f0f0f0, #ffffff);
     }
   </style>
 </head>
@@ -83,23 +80,23 @@
 
   <!-- Toggle Button -->
   <div class="flex justify-end p-5 z-10">
-    <button id="themeToggle" class="px-4 py-2 rounded-lg text-sm font-medium bg-blue-700 hover:bg-red-700 text-white shadow-md transition-all">
-      Toggle Mode
+    <button id="themeToggle" 
+      class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-blue-700 hover:bg-red-700 text-white shadow-md transition-all">
+      🌙 Light Mode
     </button>
   </div>
 
   <!-- Header -->
   <header class="flex flex-col items-center py-12 bg-black/40 backdrop-blur-md shadow-md z-10" data-aos="fade-down">
-    <img src="https://lh3.googleusercontent.com/d/1rVN4bA9Zp8-4MuE-R0Qa3X4K-SRXzDZI" 
+    <img src="https://lh3.googleusercontent.com/d/1rVN4bA9Zp8-4MuE-R0Qa3X4K-SRXzDZI"
          alt="Foto Profil"
          class="rounded-full w-36 h-36 object-cover mb-4 shadow-[0_0_25px_#a855f7] border-4 border-blue-500">
     <h1 class="text-4xl font-bold text-red-300 drop-shadow-[0_0_8px_#a4161a]">Taufik Hidayatullah</h1>
     <p class="text-blue-200 text-lg">Human Resource Intern | Research Enthusiast</p>
   </header>
 
-  <!-- Main Content -->
+  <!-- Main -->
   <main class="max-w-5xl mx-auto p-6 relative z-10 space-y-14 bg-black/30 backdrop-blur-sm rounded-2xl mt-8 shadow-2xl">
-
     <!-- Tentang Saya -->
     <section id="about" data-aos="fade-up">
       <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Tentang Saya</h2>
@@ -185,14 +182,13 @@
         <p>Telepon: <span class="text-gray-200">+62 812-3456-7890</span></p>
       </div>
     </section>
-
   </main>
 
-  <!-- Footer -->
   <footer class="text-center py-6 bg-black/40 backdrop-blur border-t border-blue-800 text-blue-300 text-sm z-10" data-aos="fade-up">
     © 2025 Taufik Hidayatullah. All rights reserved.
   </footer>
 
+  <!-- Scripts -->
   <script>
     AOS.init({ duration: 1000, once: true });
 
@@ -220,35 +216,27 @@
           "out_mode": "out"
         }
       },
-      "interactivity": {
-        "events": {
-          "onhover": { "enable": true, "mode": "grab" },
-          "onclick": { "enable": true, "mode": "push" },
-          "resize": true
-        }
-      },
       "retina_detect": true
     });
 
-    /* Toggle Mode Script */
-    const toggleBtn = document.getElementById('themeToggle');
+    /* ✅ Toggle Mode Fix (works on iOS too) */
+    const toggleBtn = document.getElementById("themeToggle");
     const html = document.documentElement;
     let darkMode = true;
 
-    toggleBtn.addEventListener('click', () => {
+    toggleBtn.addEventListener("click", () => {
       darkMode = !darkMode;
+
       if (darkMode) {
-        html.classList.add('dark');
-        html.classList.remove('light');
+        html.classList.add("dark");
+        html.classList.remove("light");
+        toggleBtn.innerHTML = "🌙 Light Mode";
       } else {
-        html.classList.add('light');
-        html.classList.remove('dark');
+        html.classList.add("light");
+        html.classList.remove("dark");
+        toggleBtn.innerHTML = "💡 Dark Mode";
       }
     });
   </script>
-
-  <div id="particles-js"></div>
-  <div class="mesh"></div>
-
 </body>
 </html>
