@@ -236,7 +236,13 @@
         html.classList.remove("dark");
         toggleBtn.innerHTML = "💡 Dark Mode";
       }
-    });
+
+    // 🩵 iOS fix: paksa browser untuk repaint tampilan
+    document.body.style.display = 'none';
+    void document.body.offsetHeight; // trigger reflow
+    document.body.style.display = '';
+  });  
   </script>
 </body>
 </html>
+
