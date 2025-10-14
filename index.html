@@ -5,39 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Taufik Hidayatullah | CV Online</title>
 
-  <!-- Tailwind CSS -->
+  <!-- Tailwind & Animations -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- AOS Animation -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-  <!-- Particles.js -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    html.dark {
-      --bg-gradient: linear-gradient(-45deg, #0a1931, #800000, #1b2845, #a4161a);
-      --text-color: #e5e7eb;
-    }
-    html.light {
-      --bg-gradient: linear-gradient(-45deg, #f9fafb, #e5e7eb, #f0f0f0, #ffffff);
-      --text-color: #1f2937;
-    }
-
     body {
       font-family: 'Inter', sans-serif;
-      color: var(--text-color);
-      background: var(--bg-gradient);
-      background-size: 400% 400%;
-      animation: gradientMove 25s ease infinite;
+      color: #e5e7eb;
       overflow-x: hidden;
       scroll-behavior: smooth;
-      transition: background 0.6s ease, color 0.6s ease;
+      position: relative;
+      min-height: 100vh;
+      transition: color 0.6s ease;
     }
+
+    /* 🎨 Background gradient layered + crossfade */
+    .bg-layer {
+      position: fixed;
+      top: -5vh; /* beri ruang agar tidak kelihatan gap bawah */
+      left: 0;
+      width: 110%;
+      height: 110%;
+      background-size: 400% 400%;
+      animation: gradientMove 25s ease infinite;
+      z-index: -4;
+      transition: opacity 1.2s ease, transform 0.5s ease-out;
+      will-change: transform;
+    }
+
+    .bg-dark {
+      background: linear-gradient(-45deg, #0a1931, #800000, #1b2845, #a4161a);
+      opacity: 1;
+    }
+
+    .bg-light {
+      background: linear-gradient(-45deg, #f9fafb, #e5e7eb, #f0f0f0, #ffffff);
+      opacity: 0;
+    }
+
+    body.light .bg-dark { opacity: 0; }
+    body.light .bg-light { opacity: 1; }
 
     @keyframes gradientMove {
       0% { background-position: 0% 50%; }
@@ -45,17 +56,30 @@
       100% { background-position: 0% 50%; }
     }
 
+    /* 🕸️ Particles layer */
+    #particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      pointer-events: none;
+      transition: opacity 1s ease;
+    }
+
+    /* 💫 Mesh overlay */
     .mesh {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
       pointer-events: none;
       background:
-        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1), transparent 60%),
-        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1), transparent 60%);
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1), transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1), transparent 60%);
       background-size: 200% 200%;
       animation: moveMesh 15s ease-in-out infinite alternate;
       z-index: -2;
+      transition: opacity 1s ease;
     }
 
     @keyframes moveMesh {
@@ -63,71 +87,90 @@
       to { background-position: 100% 100%; }
     }
 
-    #particles-js {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
+    /* ✨ Header subtle glow */
+    header.glow {
+      animation: headerGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes headerGlow {
+      from { box-shadow: 0 0 20px rgba(164, 22, 26, 0.3); }
+      to { box-shadow: 0 0 40px rgba(164, 22, 26, 0.6); }
     }
   </style>
 </head>
 
-<body class="min-h-screen relative">
-
-  <!-- Background Effects -->
+<body class="min-h-screen relative dark">
+  <!-- 🔮 Background -->
+  <div class="bg-layer bg-dark"></div>
+  <div class="bg-layer bg-light"></div>
   <div id="particles-js"></div>
   <div class="mesh"></div>
 
-  <!-- Toggle Button -->
+  <!-- Toggle -->
   <div class="flex justify-end p-5 z-10">
-    <button id="themeToggle" 
+    <button id="themeToggle"
       class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-blue-700 hover:bg-red-700 text-white shadow-md transition-all">
       🌙 Light Mode
     </button>
   </div>
 
   <!-- Header -->
-  <header class="flex flex-col items-center py-12 bg-black/40 backdrop-blur-md shadow-md z-10" data-aos="fade-down">
+  <header class="flex flex-col items-center py-12 bg-black/40 backdrop-blur-md shadow-md z-10 glow" data-aos="fade-down">
     <img src="https://lh3.googleusercontent.com/d/1rVN4bA9Zp8-4MuE-R0Qa3X4K-SRXzDZI"
          alt="Foto Profil"
          class="rounded-full w-36 h-36 object-cover mb-4 shadow-[0_0_25px_#a855f7] border-4 border-blue-500">
     <h1 class="text-4xl font-bold text-red-300 drop-shadow-[0_0_8px_#a4161a]">Taufik Hidayatullah</h1>
-    <p class="text-blue-200 text-lg">Human Resource Intern | Research Enthusiast</p>
+    <p class="text-blue-200 text-lg">PSDM | HR & Recruitment Enthusiast</p>
   </header>
 
   <!-- Main -->
   <main class="max-w-5xl mx-auto p-6 relative z-10 space-y-14 bg-black/30 backdrop-blur-sm rounded-2xl mt-8 shadow-2xl">
-    <!-- Tentang Saya -->
-    <section id="about" data-aos="fade-up">
+    <section id="about" data-aos="fade-up" data-aos-delay="200">
       <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Tentang Saya</h2>
       <p class="leading-relaxed">
-        Saya adalah mahasiswa psikologi dengan ketertarikan pada bidang sumber daya manusia dan penelitian perilaku.
-        Saya memiliki kemampuan dalam analisis data, komunikasi interpersonal, dan pemecahan masalah berbasis riset.
+        Saya adalah individu yang berorientasi pada hasil dan memiliki pengalaman di bidang operasional, sumber daya manusia, serta pengembangan organisasi. Terbiasa memimpin tim, mengelola kegiatan, dan memastikan proses berjalan efisien. Memiliki kemampuan komunikasi yang baik, adaptif terhadap perubahan, serta berkomitmen untuk terus berkembang dan memberikan kontribusi maksimal bagi perusahaan.
       </p>
     </section>
 
-    <!-- Pendidikan -->
+      <!-- Pendidikan -->
     <section id="education" data-aos="fade-up">
       <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Pendidikan</h2>
       <div class="bg-blue-900/40 p-5 rounded-xl shadow-lg hover:shadow-[0_0_25px_#2563eb] transition">
-        <h3 class="font-bold text-lg text-blue-200">Universitas Negeri Yogyakarta</h3>
-        <p class="text-gray-300">S1 Psikologi | 2020 - Sekarang</p>
+        <h3 class="font-bold text-lg text-blue-200">Universitas Islam Negeri Sunan Kalijaga Yogyakarta</h3>
+        <p class="text-gray-300">S1 Psikologi | 2020 - 2024</p>
       </div>
     </section>
 
     <!-- Pengalaman -->
     <section id="experience" data-aos="fade-up">
-      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Pengalaman</h2>
+      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Pengalaman Organisasi</h2>
       <div class="grid md:grid-cols-2 gap-6">
         <div class="bg-blue-900/40 p-5 rounded-xl shadow-lg hover:shadow-[0_0_20px_#2563eb] transition">
-          <h3 class="font-semibold text-xl text-blue-300">HR Intern - PT Cipta Karya</h3>
-          <p class="text-gray-400 text-sm">Juli 2024 - Sekarang</p>
+          <h3 class="font-semibold text-xl text-blue-300">OSIS</h3>
+          <p class="text-gray-400 text-sm">Februari 2024 - Juni 2024</p>
           <p class="text-gray-200 mt-2">Bertanggung jawab dalam proses rekrutmen, pengelolaan data karyawan, dan analisis hasil survei kepuasan kerja.</p>
         </div>
         <div class="bg-blue-900/40 p-5 rounded-xl shadow-lg hover:shadow-[0_0_20px_#2563eb] transition">
-          <h3 class="font-semibold text-xl text-blue-300">Asisten Riset - Universitas Negeri Yogyakarta</h3>
-          <p class="text-gray-400 text-sm">2023 - 2024</p>
-          <p class="text-gray-200 mt-2">Membantu dosen dalam penyusunan instrumen penelitian dan pengolahan data menggunakan SPSS dan Google Sheets.</p>
+          <h3 class="font-semibold text-xl text-blue-300">HMPS</h3>
+          <p class="text-gray-400 text-sm">Desember 2024 - Sekarang</p>
+          <p class="text-gray-200 mt-2">Bertanggung jawab atas kelancaran operasional harian restoran, termasuk pengawasan kinerja tim, pengelolaan administrasi keuangan dan gudang, serta pelaksanaan stock opname secara berkala. Memastikan standar layanan, kebersihan, dan kualitas produk tetap terjaga sesuai SOP perusahaan. Berperan aktif dalam pengembangan tim, efisiensi operasional, serta pencapaian target penjualan dan kepuasan pelanggan.</p>
+        </div>
+      </div>
+    </section>
+
+     <!-- Pengalaman kerja-->
+    <section id="experience" data-aos="fade-up">
+      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Pengalaman Kerja</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow-lg hover:shadow-[0_0_20px_#2563eb] transition">
+          <h3 class="font-semibold text-xl text-blue-300">HR Intern - Seven.Inc</h3>
+          <p class="text-gray-400 text-sm">Februari 2024 - Juni 2024</p>
+          <p class="text-gray-200 mt-2">Bertanggung jawab dalam proses rekrutmen, pengelolaan data karyawan, dan analisis hasil survei kepuasan kerja.</p>
+        </div>
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow-lg hover:shadow-[0_0_20px_#2563eb] transition">
+          <h3 class="font-semibold text-xl text-blue-300">Operasional Manager - PT. Pesta Pora Abadi</h3>
+          <p class="text-gray-400 text-sm">Desember 2024 - Sekarang</p>
+          <p class="text-gray-200 mt-2">Bertanggung jawab atas kelancaran operasional harian restoran, termasuk pengawasan kinerja tim, pengelolaan administrasi keuangan dan gudang, serta pelaksanaan stock opname secara berkala. Memastikan standar layanan, kebersihan, dan kualitas produk tetap terjaga sesuai SOP perusahaan. Berperan aktif dalam pengembangan tim, efisiensi operasional, serta pencapaian target penjualan dan kepuasan pelanggan.</p>
         </div>
       </div>
     </section>
@@ -163,6 +206,37 @@
       </div>
     </section>
 
+     <!-- BAHASA -->
+    <section id="Bahasa" data-aos="fade-up">
+      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Bahasa</h2>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow hover:shadow-[0_0_20px_#2563eb] transition">
+          <p>Bahasa Indonesia</p>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-1 overflow-hidden">
+            <div class="bg-blue-500 h-2 w-10/12 animate-[grow_2s_ease-in-out]"></div>
+          </div>
+        </div>
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow hover:shadow-[0_0_20px_#2563eb] transition">
+          <p>English</p>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-1 overflow-hidden">
+            <div class="bg-blue-500 h-2 w-8/12 animate-[grow_2s_ease-in-out]"></div>
+          </div>
+        </div>
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow hover:shadow-[0_0_20px_#2563eb] transition">
+          <p>Chinese</p>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-1 overflow-hidden">
+            <div class="bg-blue-500 h-2 w-5/12 animate-[grow_2s_ease-in-out]"></div>
+          </div>
+        </div>
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow hover:shadow-[0_0_20px_#2563eb] transition">
+          <p>Arabic</p>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-1 overflow-hidden">
+            <div class="bg-blue-500 h-2 w-6/12 animate-[grow_2s_ease-in-out]"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Portofolio -->
     <section id="portfolio" data-aos="zoom-in-up">
       <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Portofolio</h2>
@@ -177,74 +251,62 @@
     <section id="contact" class="pb-10" data-aos="fade-up">
       <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Kontak</h2>
       <div class="bg-blue-900/40 p-6 rounded-xl shadow-md hover:shadow-[0_0_20px_#2563eb] transition">
-        <p>Email: <a href="mailto:taufik@example.com" class="text-blue-400 hover:underline">taufik@example.com</a></p>
-        <p>LinkedIn: <a href="#" class="text-blue-400 hover:underline">linkedin.com/in/taufikhidayatullah</a></p>
-        <p>Telepon: <span class="text-gray-200">+62 812-3456-7890</span></p>
+        <p>Email: <a href="mailto:thidayatullah12@gmail.com" class="text-blue-400 hover:underline">thidayatullah12@gmail.com</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/taufik-hidayatullah-337a99249/" class="text-blue-400 hover:underline">Taufik Hidayatullah</a></p>
+        <p>Nomor HP: <a href="wa.me/6281357022026/" class="text-blue-400 hover:underline">081357022026</p>
       </div>
     </section>
   </main>
 
-  <footer class="text-center py-6 bg-black/40 backdrop-blur border-t border-blue-800 text-blue-300 text-sm z-10" data-aos="fade-up">
+  <footer class="text-center py-6 bg-black/40 backdrop-blur border-t border-blue-800 text-blue-300 text-sm z-10" data-aos="fade-up" data-aos-delay="600">
     © 2025 Taufik Hidayatullah. All rights reserved.
   </footer>
 
-  <!-- Scripts -->
   <script>
     AOS.init({ duration: 1000, once: true });
 
-    /* Particles config (network style, always active) */
-    particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 85 },
-        "color": { "value": "#2563eb" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.6 },
-        "size": { "value": 3 },
-        "line_linked": {
-          "enable": true,
-          "distance": 130,
-          "color": "#a4161a",
-          "opacity": 0.5,
-          "width": 1.2
+    // 🔹 Particle Setup (Dynamic)
+    function initParticles(color1, linkColor) {
+      particlesJS("particles-js", {
+        "particles": {
+          "number": { "value": 85 },
+          "color": { "value": color1 },
+          "opacity": { "value": 0.6 },
+          "size": { "value": 3 },
+          "line_linked": {
+            "enable": true,
+            "distance": 130,
+            "color": linkColor,
+            "opacity": 0.5,
+            "width": 1.2
+          },
+          "move": { "enable": true, "speed": 2.5 }
         },
-        "move": {
-          "enable": true,
-          "speed": 2.5,
-          "direction": "none",
-          "random": true,
-          "straight": false,
-          "out_mode": "out"
-        }
-      },
-      "retina_detect": true
-    });
+        "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
+        "retina_detect": true
+      });
+    }
 
-    /* 💡 Ultimate iOS Fix + Dynamic Icon */
+    initParticles("#2563eb", "#a4161a");
+
+    // 🌙 Toggle Theme Smooth Transition
     const toggleBtn = document.getElementById('themeToggle');
+    const body = document.body;
     let darkMode = true;
 
     toggleBtn.addEventListener('click', () => {
       darkMode = !darkMode;
+      body.classList.toggle('light');
+      body.style.color = darkMode ? '#e5e7eb' : '#1f2937';
+      toggleBtn.innerHTML = darkMode ? "💡 Light Mode" : "🌙 Dark Mode";
 
-      if (darkMode) {
-        document.documentElement.classList.add('dark');
-        document.documentElement.classList.remove('light');
-        document.body.style.color = '#e5e7eb';
-        document.body.style.background = 'linear-gradient(-45deg, #0a1931, #800000, #1b2845, #a4161a)';
-        document.body.style.transition = 'background 0.6s ease, color 0.6s ease';
-        toggleBtn.innerHTML = "🌙 Light Mode";
-      } else {
-        document.documentElement.classList.add('light');
-        document.documentElement.classList.remove('dark');
-        document.body.style.color = '#1f2937';
-        document.body.style.background = 'linear-gradient(-45deg, #f9fafb, #e5e7eb, #f0f0f0, #ffffff)';
-        document.body.style.transition = 'background 0.6s ease, color 0.6s ease';
-        toggleBtn.innerHTML = "💡 Dark Mode";
-      }
+      // reinit particle colors per mode
+      document.querySelector("#particles-js").innerHTML = "";
+      if (darkMode) initParticles("#2563eb", "#a4161a");
+      else initParticles("#1e3a8a", "#9ca3af");
     });
+
+
   </script>
 </body>
 </html>
-
-
-
