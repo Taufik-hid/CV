@@ -219,31 +219,32 @@
       "retina_detect": true
     });
 
-    /* ✅ Toggle Mode Script (iOS & Web universal fix + dynamic icon) */
+    /* 💡 Ultimate iOS Fix + Dynamic Icon */
     const toggleBtn = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    const body = document.body;
     let darkMode = true;
 
     toggleBtn.addEventListener('click', () => {
       darkMode = !darkMode;
 
       if (darkMode) {
-        html.classList.add('dark');
-        html.classList.remove('light');
-        body.classList.add('dark');
-        body.classList.remove('light');
-        toggleBtn.innerHTML = "💡 Light Mode";
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+        document.body.style.color = '#e5e7eb';
+        document.body.style.background = 'linear-gradient(-45deg, #0a1931, #800000, #1b2845, #a4161a)';
+        document.body.style.transition = 'background 0.6s ease, color 0.6s ease';
+        toggleBtn.innerHTML = "🌙 Light Mode";
       } else {
-        html.classList.add('light');
-        html.classList.remove('dark');
-        body.classList.add('light');
-        body.classList.remove('dark');
-        toggleBtn.innerHTML = "🌙 Dark Mode";
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+        document.body.style.color = '#1f2937';
+        document.body.style.background = 'linear-gradient(-45deg, #f9fafb, #e5e7eb, #f0f0f0, #ffffff)';
+        document.body.style.transition = 'background 0.6s ease, color 0.6s ease';
+        toggleBtn.innerHTML = "💡 Dark Mode";
       }
-    });  
+    });
   </script>
 </body>
 </html>
+
 
 
