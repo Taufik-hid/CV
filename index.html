@@ -219,30 +219,31 @@
       "retina_detect": true
     });
 
-    /* ✅ Toggle Mode Fix (works on iOS too) */
-    const toggleBtn = document.getElementById("themeToggle");
+    /* ✅ Toggle Mode Script (iOS & Web universal fix + dynamic icon) */
+    const toggleBtn = document.getElementById('themeToggle');
     const html = document.documentElement;
+    const body = document.body;
     let darkMode = true;
 
-    toggleBtn.addEventListener("click", () => {
+    toggleBtn.addEventListener('click', () => {
       darkMode = !darkMode;
 
       if (darkMode) {
-        html.classList.add("dark");
-        html.classList.remove("light");
-        toggleBtn.innerHTML = "🌙 Light Mode";
+        html.classList.add('dark');
+        html.classList.remove('light');
+        body.classList.add('dark');
+        body.classList.remove('light');
+        toggleBtn.innerHTML = "💡 Light Mode";
       } else {
-        html.classList.add("light");
-        html.classList.remove("dark");
-        toggleBtn.innerHTML = "💡 Dark Mode";
+        html.classList.add('light');
+        html.classList.remove('dark');
+        body.classList.add('light');
+        body.classList.remove('dark');
+        toggleBtn.innerHTML = "🌙 Dark Mode";
       }
-
-    // 🩵 iOS fix: paksa browser untuk repaint tampilan
-    document.body.style.display = 'none';
-    void document.body.offsetHeight; // trigger reflow
-    document.body.style.display = '';
-  });  
+    });  
   </script>
 </body>
 </html>
+
 
