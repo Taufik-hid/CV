@@ -23,25 +23,23 @@
       transition: color 0.6s ease;
     }
 
-    /* 🎨 Background gradient layered + crossfade */
+    /* 🎨 Background gradient layered + crossfade + smooth animation */
     .bg-layer {
       position: fixed;
-      top: -5vh; /* beri ruang agar tidak kelihatan gap bawah */
+      top: -5vh;
       left: 0;
       width: 110%;
       height: 110%;
+      background: linear-gradient(-45deg, #0a1931, #800000, #1b2845, #a4161a);
       background-size: 400% 400%;
+      background-position: 0% 50%;
       animation: gradientMove 25s ease infinite;
       z-index: -4;
-      transition: opacity 0.5s ease, transform 0.5s ease-out;
-      will-change: transform;
+      transition: opacity 0.8s ease, transform 0.5s ease-out;
+      will-change: transform, background-position;
     }
 
-    .bg-dark {
-      background: linear-gradient(-45deg, #0a1931, #800000, #1b2845, #a4161a);
-      opacity: 1;
-    }
-
+    .bg-dark { opacity: 1; }
     .bg-light {
       background: linear-gradient(-45deg, #f9fafb, #e5e7eb, #f0f0f0, #ffffff);
       opacity: 0;
@@ -50,9 +48,12 @@
     body.light .bg-dark { opacity: 0; }
     body.light .bg-light { opacity: 1; }
 
+    /* 🌈 Gradasi halus dan lembut (loop animasi) */
     @keyframes gradientMove {
       0% { background-position: 0% 50%; }
+      25% { background-position: 50% 100%; }
       50% { background-position: 100% 50%; }
+      75% { background-position: 50% 0%; }
       100% { background-position: 0% 50%; }
     }
 
@@ -64,7 +65,6 @@
       height: 100%;
       z-index: -3;
       pointer-events: none;
-      transition: opacity 1s ease;
     }
 
     /* 💫 Mesh overlay */
@@ -79,7 +79,6 @@
       background-size: 200% 200%;
       animation: moveMesh 15s ease-in-out infinite alternate;
       z-index: -2;
-      transition: opacity 1s ease;
     }
 
     @keyframes moveMesh {
@@ -87,7 +86,7 @@
       to { background-position: 100% 100%; }
     }
 
-    /* ✨ Header subtle glow */
+    /* ✨ Header glow halus */
     header.glow {
       animation: headerGlow 3s ease-in-out infinite alternate;
     }
@@ -110,7 +109,7 @@
   <div class="flex justify-end p-5 z-10">
     <button id="themeToggle"
       class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-blue-700 hover:bg-red-700 text-white shadow-md transition-all">
-      🌙 Light Mode
+      💡 Light Mode
     </button>
   </div>
 
@@ -263,51 +262,85 @@
   </footer>
 
   <script>
-    AOS.init({ duration: 1000, once: true });
+  AOS.init({ duration: 1000, once: true });
 
-    // 🔹 Particle Setup (Dynamic)
-    function initParticles(color1, linkColor) {
-      particlesJS("particles-js", {
-        "particles": {
-          "number": { "value": 85 },
-          "color": { "value": color1 },
-          "opacity": { "value": 0.6 },
-          "size": { "value": 3 },
-          "line_linked": {
-            "enable": true,
-            "distance": 130,
-            "color": linkColor,
-            "opacity": 0.5,
-            "width": 1.2
-          },
-          "move": { "enable": true, "speed": 2.5 }
-        },
-        "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
-        "retina_detect": true
-      });
-    }
+  // 🔹 Inisialisasi Partikel Sekali (tetap aktif selamanya)
+  particlesJS("particles-js", {
+    "particles": {
+      "number": { "value": 85 },
+      "color": { "value": "#2563eb" },
+      "opacity": { "value": 0.6 },
+      "size": { "value": 3 },
+      "line_linked": {
+        "enable": true,
+        "distance": 130,
+        "color": "#a4161a",
+        "opacity": 0.5,
+        "width": 1.2
+      },
+      "move": { "enable": true, "speed": 2.5 }
+    },
+    "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
+    "retina_detect": true
+  });
 
-    initParticles("#2563eb", "#a4161a");
+  const toggleBtn = document.getElementById('themeToggle');
+  const body = document.body;
+  let darkMode = true;
 
-    // 🌙 Toggle Theme Smooth Transition
-    const toggleBtn = document.getElementById('themeToggle');
-    const body = document.body;
-    let darkMode = true;
+  toggleBtn.addEventListener('click', () => {
+    darkMode = !darkMode;
+    body.classList.toggle('light');
+    body.style.color = darkMode ? '#e5e7eb' : '#1f2937';
+    toggleBtn.innerHTML = darkMode ? "💡 Light Mode" : "🌙 Dark Mode";
 
-    toggleBtn.addEventListener('click', () => {
-      darkMode = !darkMode;
-      body.classList.toggle('light');
-      body.style.color = darkMode ? '#e5e7eb' : '#1f2937';
-      toggleBtn.innerHTML = darkMode ? "💡 Light Mode" : "🌙 Dark Mode";
+    // 🎨 Transisi warna partikel tanpa reset canvas
+    const pJS = window.pJSDom[0].pJS;
 
-      // reinit particle colors per mode
-      document.querySelector("#particles-js").innerHTML = "";
-      if (darkMode) initParticles("#2563eb", "#a4161a");
-      else initParticles("#1e3a8a", "#9ca3af");
+    const startColor = darkMode ? { r: 96, g: 165, b: 250 } : { r: 37, g: 99, b: 235 }; // biru lembut ↔ biru tua
+    const endColor = darkMode ? { r: 37, g: 99, b: 235 } : { r: 96, g: 165, b: 250 };
+    const startLine = darkMode ? { r: 156, g: 163, b: 175 } : { r: 164, g: 22, b: 26 };
+    const endLine = darkMode ? { r: 164, g: 22, b: 26 } : { r: 156, g: 163, b: 175 };
+
+    const duration = 600; // 0.6s
+    const steps = 30;
+    let current = 0;
+
+    const animateTransition = setInterval(() => {
+      const progress = current / steps;
+      const r = Math.round(startColor.r + (endColor.r - startColor.r) * progress);
+      const g = Math.round(startColor.g + (endColor.g - startColor.g) * progress);
+      const b = Math.round(startColor.b + (endColor.b - startColor.b) * progress);
+      const lr = Math.round(startLine.r + (endLine.r - startLine.r) * progress);
+      const lg = Math.round(startLine.g + (endLine.g - startLine.g) * progress);
+      const lb = Math.round(startLine.b + (endLine.b - startLine.b) * progress);
+
+      const particleColor = `rgb(${r},${g},${b})`;
+      const lineColor = `rgb(${lr},${lg},${lb})`;
+
+      pJS.particles.color.value = particleColor;
+      pJS.particles.line_linked.color = lineColor;
+
+      // update warna langsung tanpa refresh
+      pJS.particles.array.forEach(p => p.color.value = particleColor);
+
+      pJS.fn.particlesDraw();
+
+      if (current++ >= steps) clearInterval(animateTransition);
+    }, duration / steps);
+  });
+
+  // 🌌 Efek Parallax tetap lembut
+  const bgLayers = document.querySelectorAll('.bg-layer');
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const move = Math.min(scrollY * 0.3, 180);
+    bgLayers.forEach(layer => {
+      layer.style.transform = `translateY(${move}px)`;
     });
-
-
-  </script>
+  });
+</script>
 </body>
 </html>
+
 
