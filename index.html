@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,10 +12,13 @@
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
+  <!-- 🎧 Sound effect for toggle -->
+  <audio id="toggleSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_52e8c9fa22.mp3?filename=click-124467.mp3" preload="auto"></audio>
+
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      color: #e5e7eb;
+      color: #1f2937;
       overflow-x: hidden;
       scroll-behavior: smooth;
       position: relative;
@@ -39,16 +42,16 @@
       will-change: transform, background-position;
     }
 
-    .bg-dark { opacity: 1; }
+    .bg-dark { opacity: 0; }
     .bg-light {
       background: linear-gradient(-45deg, #f9fafb, #e5e7eb, #f0f0f0, #ffffff);
-      opacity: 0;
+      opacity: 1;
     }
 
-    body.light .bg-dark { opacity: 0; }
-    body.light .bg-light { opacity: 1; }
+    body.dark .bg-dark { opacity: 1; }
+    body.dark .bg-light { opacity: 0; }
 
-    /* 🌈 Gradasi halus dan lembut (loop animasi) */
+    /* 🌈 Smooth gradient motion */
     @keyframes gradientMove {
       0% { background-position: 0% 50%; }
       25% { background-position: 50% 100%; }
@@ -86,7 +89,6 @@
       to { background-position: 100% 100%; }
     }
 
-    /* ✨ Header glow halus */
     header.glow {
       animation: headerGlow 3s ease-in-out infinite alternate;
     }
@@ -95,10 +97,30 @@
       from { box-shadow: 0 0 20px rgba(164, 22, 26, 0.3); }
       to { box-shadow: 0 0 40px rgba(164, 22, 26, 0.6); }
     }
+    
+    /* 🎯 Light Trail presisi scroll-aware */
+    .cursor-trail {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.7;
+      filter: blur(6px);
+      background: radial-gradient(circle, #60a5fa, transparent);
+      z-index: 9999;
+      animation: trailFade 1s ease-out forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes trailFade {
+      from { opacity: 0.8; transform: scale(1); }
+      to { opacity: 0; transform: scale(3); }
+    }
   </style>
 </head>
 
-<body class="min-h-screen relative dark">
+<body class="min-h-screen relative light">
   <!-- 🔮 Background -->
   <div class="bg-layer bg-dark"></div>
   <div class="bg-layer bg-light"></div>
@@ -106,14 +128,23 @@
   <div class="mesh"></div>
 
   <!-- Toggle -->
-  <div class="flex justify-end p-5 z-10">
-    <button id="themeToggle"
+<div class="flex justify-end gap-3 p-5 z-10">
+  <!-- Toggle Bahasa -->
+  <a id="langToggle" 
+     href="en.html" 
+     class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-purple-700 hover:bg-purple-800 text-white shadow-md transition-all">
+     🌐 EN
+  </a>
+
+  <!-- Toggle Mode -->
+  <button id="themeToggle"
       class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-blue-700 hover:bg-red-700 text-white shadow-md transition-all">
       💡 Light Mode
-    </button>
-  </div>
+  </button>
+</div>
 
-  <!-- Header -->
+  
+    <!-- Header -->
   <header class="flex flex-col items-center py-12 bg-black/40 backdrop-blur-md shadow-md z-10 glow" data-aos="fade-down">
     <img src="https://lh3.googleusercontent.com/d/1rVN4bA9Zp8-4MuE-R0Qa3X4K-SRXzDZI"
          alt="Foto Profil"
@@ -122,10 +153,10 @@
     <p class="text-blue-200 text-lg">PSDM | HR & Recruitment Enthusiast</p>
   </header>
 
-  <!-- Main -->
+  <!-- Konten -->
   <main class="max-w-5xl mx-auto p-6 relative z-10 space-y-14 bg-black/30 backdrop-blur-sm rounded-2xl mt-8 shadow-2xl">
     <section id="about" data-aos="fade-up" data-aos-delay="200">
-      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Tentang Saya</h2>
+      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">ABOUT ME</h2>
       <p class="leading-relaxed">
         Saya adalah individu yang berorientasi pada hasil dan memiliki pengalaman di bidang operasional, sumber daya manusia, serta pengembangan organisasi. Terbiasa memimpin tim, mengelola kegiatan, dan memastikan proses berjalan efisien. Memiliki kemampuan komunikasi yang baik, adaptif terhadap perubahan, serta berkomitmen untuk terus berkembang dan memberikan kontribusi maksimal bagi perusahaan.
       </p>
@@ -133,7 +164,7 @@
 
       <!-- Pendidikan -->
     <section id="education" data-aos="fade-up">
-      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Pendidikan</h2>
+      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">EDUCATION</h2>
       <div class="bg-blue-900/40 p-5 rounded-xl shadow-lg hover:shadow-[0_0_25px_#2563eb] transition">
         <h3 class="font-bold text-lg text-blue-200">Universitas Islam Negeri Sunan Kalijaga Yogyakarta</h3>
         <p class="text-gray-300">S1 Psikologi | 2020 - 2024</p>
@@ -240,10 +271,13 @@
     <section id="portfolio" data-aos="zoom-in-up">
       <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Portofolio</h2>
       <a href="https://docs.google.com/spreadsheets/d/1y7dvChzZx18YsJmeQalW7FJO8Z9-2ah_BDWFxiua3IE/edit?usp=sharing"
-         target="_blank"
-         class="inline-block bg-gradient-to-r from-blue-700 to-red-700 text-white px-6 py-3 rounded-lg shadow-md hover:scale-105 hover:shadow-[0_0_20px_#2563eb] transition-transform duration-300">
-         Lihat Portofolio
-      </a>
+   target="_blank"
+   class="inline-block px-6 py-3 rounded-xl font-semibold text-white 
+          bg-blue-900/40 backdrop-blur-sm shadow-lg border border-blue-800/30 
+          hover:-translate-y-1 hover:shadow-[0_0_20px_#2563eb] transition-all duration-500 ease-out
+          dark:bg-blue-900/40 dark:border-blue-700/40 light:bg-gray-200/60 light:border-gray-400/30">
+   Lihat Portofolio
+</a>
     </section>
 
     <!-- Kontak -->
@@ -257,90 +291,168 @@
     </section>
   </main>
 
-  <footer class="text-center py-6 bg-black/40 backdrop-blur border-t border-blue-800 text-blue-300 text-sm z-10" data-aos="fade-up" data-aos-delay="600">
+  <footer class="text-center py-6 bg-black/40 backdrop-blur border-t border-blue-800 text-blue-300 text-sm z-10" data-aos="fade-up">
     © 2025 Taufik Hidayatullah. All rights reserved.
   </footer>
 
   <script>
-  AOS.init({ duration: 1000, once: true });
+AOS.init({ duration: 1000, once: true });
 
-  // 🔹 Inisialisasi Partikel Sekali (tetap aktif selamanya)
-  particlesJS("particles-js", {
-    "particles": {
-      "number": { "value": 85 },
-      "color": { "value": "#2563eb" },
-      "opacity": { "value": 0.6 },
-      "size": { "value": 3 },
-      "line_linked": {
-        "enable": true,
-        "distance": 130,
-        "color": "#a4161a",
-        "opacity": 0.5,
-        "width": 1.2
-      },
-      "move": { "enable": true, "speed": 2.5 }
+// 🔹 Inisialisasi Partikel Sekali (tetap aktif selamanya)
+particlesJS("particles-js", {
+  "particles": {
+    "number": { "value": 85 },
+    "color": { "value": "#2563eb" },
+    "opacity": { "value": 0.6 },
+    "size": { "value": 3 },
+    "line_linked": {
+      "enable": true,
+      "distance": 130,
+      "color": "#a4161a",
+      "opacity": 0.5,
+      "width": 1.2
     },
-    "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
-    "retina_detect": true
-  });
+    "move": { "enable": true, "speed": 2.5 }
+  },
+  "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
+  "retina_detect": true
+});
 
-  const toggleBtn = document.getElementById('themeToggle');
-  const body = document.body;
-  let darkMode = true;
+const toggleBtn = document.getElementById('themeToggle');
+const body = document.body;
+let darkMode = true;
 
-  toggleBtn.addEventListener('click', () => {
-    darkMode = !darkMode;
-    body.classList.toggle('light');
-    body.style.color = darkMode ? '#e5e7eb' : '#1f2937';
-    toggleBtn.innerHTML = darkMode ? "💡 Light Mode" : "🌙 Dark Mode";
+// 🎧 Suara klik toggle
+const sound = new Audio("https://assets.mixkit.co/active_storage/sfx/2181/2181-preview.mp3");
+sound.volume = 0.35;
 
-    // 🎨 Transisi warna partikel tanpa reset canvas
-    const pJS = window.pJSDom[0].pJS;
+// 🌅 Mode otomatis sesuai waktu lokal
+function setThemeByTime() {
+  const hour = new Date().getHours();
+  const isDay = hour >= 6 && hour < 18;
 
-    const startColor = darkMode ? { r: 96, g: 165, b: 250 } : { r: 37, g: 99, b: 235 }; // biru lembut ↔ biru tua
-    const endColor = darkMode ? { r: 37, g: 99, b: 235 } : { r: 96, g: 165, b: 250 };
-    const startLine = darkMode ? { r: 156, g: 163, b: 175 } : { r: 164, g: 22, b: 26 };
-    const endLine = darkMode ? { r: 164, g: 22, b: 26 } : { r: 156, g: 163, b: 175 };
+  if (isDay) {
+    body.classList.add('light');
+    body.classList.remove('dark');
+    darkMode = false;
+    body.style.color = '#1f2937';
+    toggleBtn.innerHTML = "🌙 Dark Mode";
+  } else {
+    body.classList.add('dark');
+    body.classList.remove('light');
+    darkMode = true;
+    body.style.color = '#e5e7eb';
+    toggleBtn.innerHTML = "💡 Light Mode";
+  }
+}
 
-    const duration = 600; // 0.6s
-    const steps = 30;
-    let current = 0;
+// Jalankan saat pertama kali
+setThemeByTime();
 
-    const animateTransition = setInterval(() => {
-      const progress = current / steps;
-      const r = Math.round(startColor.r + (endColor.r - startColor.r) * progress);
-      const g = Math.round(startColor.g + (endColor.g - startColor.g) * progress);
-      const b = Math.round(startColor.b + (endColor.b - startColor.b) * progress);
-      const lr = Math.round(startLine.r + (endLine.r - startLine.r) * progress);
-      const lg = Math.round(startLine.g + (endLine.g - startLine.g) * progress);
-      const lb = Math.round(startLine.b + (endLine.b - startLine.b) * progress);
+// 🌄 Periksa tiap menit, ubah mode otomatis jika waktu berganti
+setInterval(() => {
+  const hour = new Date().getHours();
+  const isDay = hour >= 6 && hour < 18;
+  if (isDay && darkMode) {
+    toggleMode(false); // ubah ke light
+  } else if (!isDay && !darkMode) {
+    toggleMode(true); // ubah ke dark
+  }
+}, 60000); // cek tiap 1 menit
 
-      const particleColor = `rgb(${r},${g},${b})`;
-      const lineColor = `rgb(${lr},${lg},${lb})`;
+// 🔄 Fungsi untuk ganti mode manual / otomatis dengan animasi halus
+function toggleMode(toDark) {
+  darkMode = toDark;
+  body.classList.toggle('light', !darkMode);
+  body.classList.toggle('dark', darkMode);
+  body.style.color = darkMode ? '#e5e7eb' : '#1f2937';
+  toggleBtn.innerHTML = darkMode ? "💡 Light Mode" : "🌙 Dark Mode";
 
-      pJS.particles.color.value = particleColor;
-      pJS.particles.line_linked.color = lineColor;
+  // mainkan efek suara
+  sound.currentTime = 0;
+  sound.play();
 
-      // update warna langsung tanpa refresh
-      pJS.particles.array.forEach(p => p.color.value = particleColor);
+  // 🎨 Transisi warna partikel tanpa reset canvas
+  const pJS = window.pJSDom[0].pJS;
+  const startColor = darkMode ? { r: 96, g: 165, b: 250 } : { r: 37, g: 99, b: 235 };
+  const endColor = darkMode ? { r: 37, g: 99, b: 235 } : { r: 96, g: 165, b: 250 };
+  const startLine = darkMode ? { r: 156, g: 163, b: 175 } : { r: 164, g: 22, b: 26 };
+  const endLine = darkMode ? { r: 164, g: 22, b: 26 } : { r: 156, g: 163, b: 175 };
 
-      pJS.fn.particlesDraw();
+  const duration = 600;
+  const steps = 30;
+  let current = 0;
 
-      if (current++ >= steps) clearInterval(animateTransition);
-    }, duration / steps);
-  });
+  const animateTransition = setInterval(() => {
+    const progress = current / steps;
+    const r = Math.round(startColor.r + (endColor.r - startColor.r) * progress);
+    const g = Math.round(startColor.g + (endColor.g - startColor.g) * progress);
+    const b = Math.round(startColor.b + (endColor.b - startColor.b) * progress);
+    const lr = Math.round(startLine.r + (endLine.r - startLine.r) * progress);
+    const lg = Math.round(startLine.g + (endLine.g - startLine.g) * progress);
+    const lb = Math.round(startLine.b + (endLine.b - startLine.b) * progress);
 
-  // 🌌 Efek Parallax tetap lembut
-  const bgLayers = document.querySelectorAll('.bg-layer');
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    const move = Math.min(scrollY * 0.3, 180);
-    bgLayers.forEach(layer => {
-      layer.style.transform = `translateY(${move}px)`;
+    const particleColor = `rgb(${r},${g},${b})`;
+    const lineColor = `rgb(${lr},${lg},${lb})`;
+
+    pJS.particles.color.value = particleColor;
+    pJS.particles.line_linked.color = lineColor;
+    pJS.particles.array.forEach(p => p.color.value = particleColor);
+    pJS.fn.particlesDraw();
+
+    if (current++ >= steps) clearInterval(animateTransition);
+  }, duration / steps);
+}
+
+// 🌗 Klik manual toggle
+toggleBtn.addEventListener('click', () => {
+  toggleMode(!darkMode);
+});
+// 🎯 FIX Trail Presisi Scroll
+    let cursorX = 0, cursorY = 0, scrollY = 0;
+
+    document.addEventListener("mousemove", e => {
+      cursorX = e.pageX;
+      cursorY = e.pageY;
+      createTrail(cursorX, cursorY);
     });
+
+    window.addEventListener("scroll", () => {
+      const offset = window.scrollY - scrollY;
+      scrollY = window.scrollY;
+      // buat trail tetap di posisi page (bukan viewport)
+      createTrail(cursorX, cursorY + offset);
+    });
+
+    function createTrail(x, y) {
+      const trail = document.createElement("div");
+      trail.className = "cursor-trail";
+      trail.style.left = `${x}px`;
+      trail.style.top = `${y}px`;
+      trail.style.background = darkMode
+        ? "radial-gradient(circle, rgba(37,99,235,0.8), transparent)"
+        : "radial-gradient(circle, rgba(96,165,250,0.8), transparent)";
+      document.body.appendChild(trail);
+      setTimeout(() => trail.remove(), 1000);
+    }
+    
+    // 🌐 Bahasa Toggle (deteksi halaman aktif)
+const langToggle = document.getElementById('langToggle');
+if (window.location.pathname.includes('en.html')) {
+  langToggle.href = 'index.html';
+  langToggle.innerHTML = '🌐 ID';
+}
+
+    
+// 🌌 Efek Parallax tetap lembut
+const bgLayers = document.querySelectorAll('.bg-layer');
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const move = Math.min(scrollY * 0.3, 180);
+  bgLayers.forEach(layer => {
+    layer.style.transform = `translateY(${move}px)`;
   });
+});
 </script>
 </body>
 </html>
-
-
