@@ -128,12 +128,20 @@
   <div class="mesh"></div>
 
   <!-- Toggle -->
-  <div class="flex justify-end p-5 z-10">
-    <button id="themeToggle"
+<div class="flex justify-end gap-3 p-5 z-10">
+  <!-- Toggle Bahasa -->
+  <a id="langToggle" 
+     href="index.html" 
+     class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-purple-700 hover:bg-purple-800 text-white shadow-md transition-all">
+     🌐 EN
+  </a>
+
+  <!-- Toggle Mode -->
+  <button id="themeToggle"
       class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-blue-700 hover:bg-red-700 text-white shadow-md transition-all">
-      🌙 Dark Mode
-    </button>
-  </div>
+      💡 Light Mode
+  </button>
+</div>
 
   <!-- Header -->
   <header class="flex flex-col items-center py-12 bg-black/40 backdrop-blur-md shadow-md z-10 glow" data-aos="fade-down">
@@ -426,6 +434,13 @@ toggleBtn.addEventListener('click', () => {
       document.body.appendChild(trail);
       setTimeout(() => trail.remove(), 1000);
     }
+
+// 🌐 Bahasa Toggle (deteksi halaman aktif)
+const langToggle = document.getElementById('langToggle');
+if (window.location.pathname.includes('en.html')) {
+  langToggle.href = 'index.html';
+  langToggle.innerHTML = '🌐 ID';
+}
     
 // 🌌 Efek Parallax tetap lembut
 const bgLayers = document.querySelectorAll('.bg-layer');
@@ -439,3 +454,4 @@ window.addEventListener('scroll', () => {
 </script>
 </body>
 </html>
+
