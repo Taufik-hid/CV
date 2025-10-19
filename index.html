@@ -139,7 +139,7 @@
   <!-- Toggle Mode -->
   <button id="themeToggle"
       class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-blue-700 hover:bg-red-700 text-white shadow-md transition-all">
-      💡 Light Mode
+      💡 Mode Terang
   </button>
 </div>
 
@@ -156,7 +156,7 @@
   <!-- Konten -->
   <main class="max-w-5xl mx-auto p-6 relative z-10 space-y-14 bg-black/30 backdrop-blur-sm rounded-2xl mt-8 shadow-2xl">
     <section id="about" data-aos="fade-up" data-aos-delay="200">
-      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">ABOUT ME</h2>
+      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">TENTANG SAYA</h2>
       <p class="leading-relaxed">
         Saya adalah individu yang berorientasi pada hasil dan memiliki pengalaman di bidang operasional, sumber daya manusia, serta pengembangan organisasi. Terbiasa memimpin tim, mengelola kegiatan, dan memastikan proses berjalan efisien. Memiliki kemampuan komunikasi yang baik, adaptif terhadap perubahan, serta berkomitmen untuk terus berkembang dan memberikan kontribusi maksimal bagi perusahaan.
       </p>
@@ -164,7 +164,7 @@
 
       <!-- Pendidikan -->
     <section id="education" data-aos="fade-up">
-      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">EDUCATION</h2>
+      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">PENDIDIKAN</h2>
       <div class="bg-blue-900/40 p-5 rounded-xl shadow-lg hover:shadow-[0_0_25px_#2563eb] transition">
         <h3 class="font-bold text-lg text-blue-200">Universitas Islam Negeri Sunan Kalijaga Yogyakarta</h3>
         <p class="text-gray-300">S1 Psikologi | 2020 - 2024</p>
@@ -336,13 +336,13 @@ function setThemeByTime() {
     body.classList.remove('dark');
     darkMode = false;
     body.style.color = '#1f2937';
-    toggleBtn.innerHTML = "🌙 Dark Mode";
+    toggleBtn.innerHTML = "🌙 Mode Gelap";
   } else {
     body.classList.add('dark');
     body.classList.remove('light');
     darkMode = true;
     body.style.color = '#e5e7eb';
-    toggleBtn.innerHTML = "💡 Light Mode";
+    toggleBtn.innerHTML = "💡 Mode Terang";
   }
 }
 
@@ -366,7 +366,7 @@ function toggleMode(toDark) {
   body.classList.toggle('light', !darkMode);
   body.classList.toggle('dark', darkMode);
   body.style.color = darkMode ? '#e5e7eb' : '#1f2937';
-  toggleBtn.innerHTML = darkMode ? "💡 Light Mode" : "🌙 Dark Mode";
+  toggleBtn.innerHTML = darkMode ? "💡 Mode Terang" : "🌙 Mode Gelap";
 
   // mainkan efek suara
   sound.currentTime = 0;
@@ -438,7 +438,7 @@ toggleBtn.addEventListener('click', () => {
     
     // 🌐 Bahasa Toggle (deteksi halaman aktif)
 const langToggle = document.getElementById('langToggle');
-if (window.location.pathname.includes('en.html')) {
+if (window.location.pathname.includes('EN.html')) {
   langToggle.href = 'index.html';
   langToggle.innerHTML = '🌐 ID';
 }
@@ -456,4 +456,5 @@ window.addEventListener('scroll', () => {
 </script>
 </body>
 </html>
+
 
