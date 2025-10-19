@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taufik Hidayatullah | CV Online</title>
+
+  <!-- Tailwind & Animations -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- 🎧 Sound effect for toggle -->
+  <audio id="toggleSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_52e8c9fa22.mp3?filename=click-124467.mp3" preload="auto"></audio>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #1f2937;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      position: relative;
+      min-height: 100vh;
+      transition: color 0.6s ease;
+    }
+
+    /* 🎨 Background gradient layered + crossfade + smooth animation */
+    .bg-layer {
+      position: fixed;
+      top: -5vh;
+      left: 0;
+      width: 110%;
+      height: 110%;
+      background: linear-gradient(-45deg, #0a1931, #800000, #1b2845, #a4161a);
+      background-size: 400% 400%;
+      background-position: 0% 50%;
+      animation: gradientMove 25s ease infinite;
+      z-index: -4;
+      transition: opacity 0.8s ease, transform 0.5s ease-out;
+      will-change: transform, background-position;
+    }
+
+    .bg-dark { opacity: 0; }
+    .bg-light {
+      background: linear-gradient(-45deg, #f9fafb, #e5e7eb, #f0f0f0, #ffffff);
+      opacity: 1;
+    }
+
+    body.dark .bg-dark { opacity: 1; }
+    body.dark .bg-light { opacity: 0; }
+
+    /* 🌈 Smooth gradient motion */
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      25% { background-position: 50% 100%; }
+      50% { background-position: 100% 50%; }
+      75% { background-position: 50% 0%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* 🕸️ Particles layer */
+    #particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      pointer-events: none;
+    }
+
+    /* 💫 Mesh overlay */
+    .mesh {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1), transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1), transparent 60%);
+      background-size: 200% 200%;
+      animation: moveMesh 15s ease-in-out infinite alternate;
+      z-index: -2;
+    }
+
+    @keyframes moveMesh {
+      from { background-position: 0% 0%; }
+      to { background-position: 100% 100%; }
+    }
+
+    header.glow {
+      animation: headerGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes headerGlow {
+      from { box-shadow: 0 0 20px rgba(164, 22, 26, 0.3); }
+      to { box-shadow: 0 0 40px rgba(164, 22, 26, 0.6); }
+    }
+    
+    /* 🎯 Light Trail presisi scroll-aware */
+    .cursor-trail {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.7;
+      filter: blur(6px);
+      background: radial-gradient(circle, #60a5fa, transparent);
+      z-index: 9999;
+      animation: trailFade 1s ease-out forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes trailFade {
+      from { opacity: 0.8; transform: scale(1); }
+      to { opacity: 0; transform: scale(3); }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen relative light">
+  <!-- 🔮 Background -->
+  <div class="bg-layer bg-dark"></div>
+  <div class="bg-layer bg-light"></div>
+  <div id="particles-js"></div>
+  <div class="mesh"></div>
+
+  <!-- Toggle -->
+  <div class="flex justify-end p-5 z-10">
+    <button id="themeToggle"
+      class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-blue-700 hover:bg-red-700 text-white shadow-md transition-all">
+      🌙 Dark Mode
+    </button>
+  </div>
+
+  <!-- Header -->
+  <header class="flex flex-col items-center py-12 bg-black/40 backdrop-blur-md shadow-md z-10 glow" data-aos="fade-down">
+    <img src="https://lh3.googleusercontent.com/d/1rVN4bA9Zp8-4MuE-R0Qa3X4K-SRXzDZI"
+         alt="Foto Profil"
+         class="rounded-full w-36 h-36 object-cover mb-4 shadow-[0_0_25px_#a855f7] border-4 border-blue-500">
+    <h1 class="text-4xl font-bold text-red-300 drop-shadow-[0_0_8px_#a4161a]">Taufik Hidayatullah</h1>
+    <p class="text-blue-200 text-lg">PSDM | HR & Recruitment Enthusiast</p>
+  </header>
+
+  <!-- Konten -->
+  <main class="max-w-5xl mx-auto p-6 relative z-10 space-y-14 bg-black/30 backdrop-blur-sm rounded-2xl mt-8 shadow-2xl">
+    <section id="about" data-aos="fade-up" data-aos-delay="200">
+      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Tentang Saya</h2>
+      <p class="leading-relaxed">
+        Saya adalah individu yang berorientasi pada hasil dan memiliki pengalaman di bidang operasional, sumber daya manusia, serta pengembangan organisasi. Terbiasa memimpin tim, mengelola kegiatan, dan memastikan proses berjalan efisien. Memiliki kemampuan komunikasi yang baik, adaptif terhadap perubahan, serta berkomitmen untuk terus berkembang dan memberikan kontribusi maksimal bagi perusahaan.
+      </p>
+    </section>
+
+      <!-- Pendidikan -->
+    <section id="education" data-aos="fade-up">
+      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Pendidikan</h2>
+      <div class="bg-blue-900/40 p-5 rounded-xl shadow-lg hover:shadow-[0_0_25px_#2563eb] transition">
+        <h3 class="font-bold text-lg text-blue-200">Universitas Islam Negeri Sunan Kalijaga Yogyakarta</h3>
+        <p class="text-gray-300">S1 Psikologi | 2020 - 2024</p>
+      </div>
+    </section>
+
+    <!-- Pengalaman -->
+    <section id="experience" data-aos="fade-up">
+      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Pengalaman Organisasi</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow-lg hover:shadow-[0_0_20px_#2563eb] transition">
+          <h3 class="font-semibold text-xl text-blue-300">OSIS</h3>
+          <p class="text-gray-400 text-sm">Februari 2024 - Juni 2024</p>
+          <p class="text-gray-200 mt-2">Bertanggung jawab dalam proses rekrutmen, pengelolaan data karyawan, dan analisis hasil survei kepuasan kerja.</p>
+        </div>
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow-lg hover:shadow-[0_0_20px_#2563eb] transition">
+          <h3 class="font-semibold text-xl text-blue-300">HMPS</h3>
+          <p class="text-gray-400 text-sm">Desember 2024 - Sekarang</p>
+          <p class="text-gray-200 mt-2">Bertanggung jawab atas kelancaran operasional harian restoran, termasuk pengawasan kinerja tim, pengelolaan administrasi keuangan dan gudang, serta pelaksanaan stock opname secara berkala. Memastikan standar layanan, kebersihan, dan kualitas produk tetap terjaga sesuai SOP perusahaan. Berperan aktif dalam pengembangan tim, efisiensi operasional, serta pencapaian target penjualan dan kepuasan pelanggan.</p>
+        </div>
+      </div>
+    </section>
+
+     <!-- Pengalaman kerja-->
+    <section id="experience" data-aos="fade-up">
+      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Pengalaman Kerja</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow-lg hover:shadow-[0_0_20px_#2563eb] transition">
+          <h3 class="font-semibold text-xl text-blue-300">HR Intern - Seven.Inc</h3>
+          <p class="text-gray-400 text-sm">Februari 2024 - Juni 2024</p>
+          <p class="text-gray-200 mt-2">Bertanggung jawab dalam proses rekrutmen, pengelolaan data karyawan, dan analisis hasil survei kepuasan kerja.</p>
+        </div>
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow-lg hover:shadow-[0_0_20px_#2563eb] transition">
+          <h3 class="font-semibold text-xl text-blue-300">Operasional Manager - PT. Pesta Pora Abadi</h3>
+          <p class="text-gray-400 text-sm">Desember 2024 - Sekarang</p>
+          <p class="text-gray-200 mt-2">Bertanggung jawab atas kelancaran operasional harian restoran, termasuk pengawasan kinerja tim, pengelolaan administrasi keuangan dan gudang, serta pelaksanaan stock opname secara berkala. Memastikan standar layanan, kebersihan, dan kualitas produk tetap terjaga sesuai SOP perusahaan. Berperan aktif dalam pengembangan tim, efisiensi operasional, serta pencapaian target penjualan dan kepuasan pelanggan.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skill -->
+    <section id="skills" data-aos="fade-up">
+      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Skill</h2>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow hover:shadow-[0_0_20px_#2563eb] transition">
+          <p>Microsoft Excel</p>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-1 overflow-hidden">
+            <div class="bg-blue-500 h-2 w-10/12 animate-[grow_2s_ease-in-out]"></div>
+          </div>
+        </div>
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow hover:shadow-[0_0_20px_#2563eb] transition">
+          <p>SPSS</p>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-1 overflow-hidden">
+            <div class="bg-blue-500 h-2 w-8/12 animate-[grow_2s_ease-in-out]"></div>
+          </div>
+        </div>
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow hover:shadow-[0_0_20px_#2563eb] transition">
+          <p>Google Sheets (Advanced)</p>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-1 overflow-hidden">
+            <div class="bg-blue-500 h-2 w-11/12 animate-[grow_2s_ease-in-out]"></div>
+          </div>
+        </div>
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow hover:shadow-[0_0_20px_#2563eb] transition">
+          <p>Communication</p>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-1 overflow-hidden">
+            <div class="bg-blue-500 h-2 w-9/12 animate-[grow_2s_ease-in-out]"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+     <!-- BAHASA -->
+    <section id="Bahasa" data-aos="fade-up">
+      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Bahasa</h2>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow hover:shadow-[0_0_20px_#2563eb] transition">
+          <p>Bahasa Indonesia</p>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-1 overflow-hidden">
+            <div class="bg-blue-500 h-2 w-10/12 animate-[grow_2s_ease-in-out]"></div>
+          </div>
+        </div>
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow hover:shadow-[0_0_20px_#2563eb] transition">
+          <p>English</p>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-1 overflow-hidden">
+            <div class="bg-blue-500 h-2 w-8/12 animate-[grow_2s_ease-in-out]"></div>
+          </div>
+        </div>
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow hover:shadow-[0_0_20px_#2563eb] transition">
+          <p>Chinese</p>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-1 overflow-hidden">
+            <div class="bg-blue-500 h-2 w-5/12 animate-[grow_2s_ease-in-out]"></div>
+          </div>
+        </div>
+        <div class="bg-blue-900/40 p-5 rounded-xl shadow hover:shadow-[0_0_20px_#2563eb] transition">
+          <p>Arabic</p>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-1 overflow-hidden">
+            <div class="bg-blue-500 h-2 w-6/12 animate-[grow_2s_ease-in-out]"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portofolio -->
+    <section id="portfolio" data-aos="zoom-in-up">
+      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Portofolio</h2>
+      <a href="https://docs.google.com/spreadsheets/d/1y7dvChzZx18YsJmeQalW7FJO8Z9-2ah_BDWFxiua3IE/edit?usp=sharing"
+   target="_blank"
+   class="inline-block px-6 py-3 rounded-xl font-semibold text-white 
+          bg-blue-900/40 backdrop-blur-sm shadow-lg border border-blue-800/30 
+          hover:-translate-y-1 hover:shadow-[0_0_20px_#2563eb] transition-all duration-500 ease-out
+          dark:bg-blue-900/40 dark:border-blue-700/40 light:bg-gray-200/60 light:border-gray-400/30">
+   Lihat Portofolio
+</a>
+    </section>
+
+    <!-- Kontak -->
+    <section id="contact" class="pb-10" data-aos="fade-up">
+      <h2 class="text-3xl font-semibold mb-3 border-b-2 border-blue-500 inline-block pb-2">Kontak</h2>
+      <div class="bg-blue-900/40 p-6 rounded-xl shadow-md hover:shadow-[0_0_20px_#2563eb] transition">
+        <p>Email: <a href="mailto:thidayatullah12@gmail.com" class="text-blue-400 hover:underline">thidayatullah12@gmail.com</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/taufik-hidayatullah-337a99249/" class="text-blue-400 hover:underline">Taufik Hidayatullah</a></p>
+        <p>Nomor HP: <a href="https://wa.me/6281357022026/" class="text-blue-400 hover:underline">081357022026</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center py-6 bg-black/40 backdrop-blur border-t border-blue-800 text-blue-300 text-sm z-10" data-aos="fade-up">
+    © 2025 Taufik Hidayatullah. All rights reserved.
+  </footer>
+
+  <script>
+AOS.init({ duration: 1000, once: true });
+
+// 🔹 Inisialisasi Partikel Sekali (tetap aktif selamanya)
+particlesJS("particles-js", {
+  "particles": {
+    "number": { "value": 85 },
+    "color": { "value": "#2563eb" },
+    "opacity": { "value": 0.6 },
+    "size": { "value": 3 },
+    "line_linked": {
+      "enable": true,
+      "distance": 130,
+      "color": "#a4161a",
+      "opacity": 0.5,
+      "width": 1.2
+    },
+    "move": { "enable": true, "speed": 2.5 }
+  },
+  "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
+  "retina_detect": true
+});
+
+const toggleBtn = document.getElementById('themeToggle');
+const body = document.body;
+let darkMode = true;
+
+// 🎧 Suara klik toggle
+const sound = new Audio("https://assets.mixkit.co/active_storage/sfx/2181/2181-preview.mp3");
+sound.volume = 0.35;
+
+// 🌅 Mode otomatis sesuai waktu lokal
+function setThemeByTime() {
+  const hour = new Date().getHours();
+  const isDay = hour >= 6 && hour < 18;
+
+  if (isDay) {
+    body.classList.add('light');
+    body.classList.remove('dark');
+    darkMode = false;
+    body.style.color = '#1f2937';
+    toggleBtn.innerHTML = "🌙 Dark Mode";
+  } else {
+    body.classList.add('dark');
+    body.classList.remove('light');
+    darkMode = true;
+    body.style.color = '#e5e7eb';
+    toggleBtn.innerHTML = "💡 Light Mode";
+  }
+}
+
+// Jalankan saat pertama kali
+setThemeByTime();
+
+// 🌄 Periksa tiap menit, ubah mode otomatis jika waktu berganti
+setInterval(() => {
+  const hour = new Date().getHours();
+  const isDay = hour >= 6 && hour < 18;
+  if (isDay && darkMode) {
+    toggleMode(false); // ubah ke light
+  } else if (!isDay && !darkMode) {
+    toggleMode(true); // ubah ke dark
+  }
+}, 60000); // cek tiap 1 menit
+
+// 🔄 Fungsi untuk ganti mode manual / otomatis dengan animasi halus
+function toggleMode(toDark) {
+  darkMode = toDark;
+  body.classList.toggle('light', !darkMode);
+  body.classList.toggle('dark', darkMode);
+  body.style.color = darkMode ? '#e5e7eb' : '#1f2937';
+  toggleBtn.innerHTML = darkMode ? "💡 Light Mode" : "🌙 Dark Mode";
+
+  // mainkan efek suara
+  sound.currentTime = 0;
+  sound.play();
+
+  // 🎨 Transisi warna partikel tanpa reset canvas
+  const pJS = window.pJSDom[0].pJS;
+  const startColor = darkMode ? { r: 96, g: 165, b: 250 } : { r: 37, g: 99, b: 235 };
+  const endColor = darkMode ? { r: 37, g: 99, b: 235 } : { r: 96, g: 165, b: 250 };
+  const startLine = darkMode ? { r: 156, g: 163, b: 175 } : { r: 164, g: 22, b: 26 };
+  const endLine = darkMode ? { r: 164, g: 22, b: 26 } : { r: 156, g: 163, b: 175 };
+
+  const duration = 600;
+  const steps = 30;
+  let current = 0;
+
+  const animateTransition = setInterval(() => {
+    const progress = current / steps;
+    const r = Math.round(startColor.r + (endColor.r - startColor.r) * progress);
+    const g = Math.round(startColor.g + (endColor.g - startColor.g) * progress);
+    const b = Math.round(startColor.b + (endColor.b - startColor.b) * progress);
+    const lr = Math.round(startLine.r + (endLine.r - startLine.r) * progress);
+    const lg = Math.round(startLine.g + (endLine.g - startLine.g) * progress);
+    const lb = Math.round(startLine.b + (endLine.b - startLine.b) * progress);
+
+    const particleColor = `rgb(${r},${g},${b})`;
+    const lineColor = `rgb(${lr},${lg},${lb})`;
+
+    pJS.particles.color.value = particleColor;
+    pJS.particles.line_linked.color = lineColor;
+    pJS.particles.array.forEach(p => p.color.value = particleColor);
+    pJS.fn.particlesDraw();
+
+    if (current++ >= steps) clearInterval(animateTransition);
+  }, duration / steps);
+}
+
+// 🌗 Klik manual toggle
+toggleBtn.addEventListener('click', () => {
+  toggleMode(!darkMode);
+});
+// 🎯 FIX Trail Presisi Scroll
+    let cursorX = 0, cursorY = 0, scrollY = 0;
+
+    document.addEventListener("mousemove", e => {
+      cursorX = e.pageX;
+      cursorY = e.pageY;
+      createTrail(cursorX, cursorY);
+    });
+
+    window.addEventListener("scroll", () => {
+      const offset = window.scrollY - scrollY;
+      scrollY = window.scrollY;
+      // buat trail tetap di posisi page (bukan viewport)
+      createTrail(cursorX, cursorY + offset);
+    });
+
+    function createTrail(x, y) {
+      const trail = document.createElement("div");
+      trail.className = "cursor-trail";
+      trail.style.left = `${x}px`;
+      trail.style.top = `${y}px`;
+      trail.style.background = darkMode
+        ? "radial-gradient(circle, rgba(37,99,235,0.8), transparent)"
+        : "radial-gradient(circle, rgba(96,165,250,0.8), transparent)";
+      document.body.appendChild(trail);
+      setTimeout(() => trail.remove(), 1000);
+    }
+    
+// 🌌 Efek Parallax tetap lembut
+const bgLayers = document.querySelectorAll('.bg-layer');
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const move = Math.min(scrollY * 0.3, 180);
+  bgLayers.forEach(layer => {
+    layer.style.transform = `translateY(${move}px)`;
+  });
+});
+</script>
+</body>
+</html>
