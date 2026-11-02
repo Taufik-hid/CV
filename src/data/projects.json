@@ -1,0 +1,35 @@
+[
+  {
+    "type": "website",
+    "title": "Web Slip Gaji",
+    "description": "Aplikasi web pembuatan slip gaji otomatis yang menggunakan Google Spreadsheet sebagai database. Mempermudah penggajian karyawan dengan data yang terpusat dan rapi.",
+    "media": "",
+    "role": "Web Developer & HR Admin",
+    "year": "2025",
+    "category": "Website",
+    "image": "https://placehold.co/960x600/141414/ef4151?text=Slip+Gaji",
+    "url": "https://taufik-hid.github.io/slipgaji/"
+  },
+  {
+    "type": "image",
+    "title": "Form Psikotes & Olahan Nilai",
+    "description": "Form psikotes online via Google Form dengan hasil yang terolah otomatis di Google Spreadsheet \u2014 skoring, rekap, dan rekomendasi kandidat tanpa input manual.",
+    "media": "",
+    "role": "HR Assessment Designer",
+    "year": "2025",
+    "category": "HR & Psikologi",
+    "image": "https://placehold.co/960x600/141414/ef4151?text=Form+Psikotes",
+    "url": "https://docs.google.com/forms/d/e/1FAIpQLScBNeJ_5k78dAB-bzbDpJnGnF_0S9ApNISlaYaJFvobBsyD6g/viewform"
+  },
+  {
+    "type": "image",
+    "title": "Master Gaji",
+    "description": "Sistem pengelolaan gaji di Google Spreadsheet: struktur tunjangan, potongan, dan rekap payroll yang otomatis dan mudah diaudit.",
+    "media": "",
+    "role": "Payroll System Builder",
+    "year": "2025",
+    "category": "Spreadsheet",
+    "image": "https://placehold.co/960x600/141414/ef4151?text=Master+Gaji",
+    "url": "https://docs.google.com/spreadsheets/d/1y7dvChzZx18YsJmeQalW7FJO8Z9-2ah_BDWFxiua3IE/edit?usp=sharing"
+  }
+]
