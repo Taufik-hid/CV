@@ -1,50 +1,34 @@
 [
   {
-    "file": "pemda.png",
+    "file": "brand0.svg",
     "name": "PT Pesta Pora Abadi"
   },
   {
-    "file": "jeta.png",
+    "file": "brand1.svg",
     "name": "Seven Inc"
   },
   {
-    "file": "logogatsu.png",
+    "file": "brand2.svg",
     "name": "UIN Sunan Kalijaga"
   },
   {
-    "file": "hara.png",
+    "file": "brand3.svg",
     "name": "Mie Gacoan"
   },
   {
-    "file": "raincreation.png",
+    "file": "brand4.svg",
     "name": "Waroeng Bikers"
   },
   {
-    "file": "seven.png",
+    "file": "brand5.svg",
     "name": "Himapsi"
   },
   {
-    "file": "unwir.png",
+    "file": "brand6.svg",
     "name": "Festival Psikologi"
   },
   {
-    "file": "diskominfo.png",
+    "file": "brand7.svg",
     "name": "Lab. PIO"
-  },
-  {
-    "file": "magma.png",
-    "name": "HRIS"
-  },
-  {
-    "file": "vianos.png",
-    "name": "Google Workspace"
-  },
-  {
-    "file": "mbc.png",
-    "name": "Canva"
-  },
-  {
-    "file": "sma1seragen.png",
-    "name": "ChatGPT / AI Agent"
   }
 ]
